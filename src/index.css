@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Deep navy tech background - Dark Mode */
+    --background: 220 30% 8%;
+    --foreground: 210 40% 98%;
+
+    /* Glassmorphic cards */
+    --card: 220 25% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 25% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Electric cyan primary */
+    --primary: 190 90% 55%;
+    --primary-foreground: 220 30% 8%;
+
+    /* Secondary with glass effect */
+    --secondary: 220 20% 18%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted for subtle elements */
+    --muted: 220 20% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    /* Violet accent */
+    --accent: 270 70% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Borders with subtle glow */
+    --border: 220 20% 20%;
+    --input: 220 20% 18%;
+    --ring: 190 90% 55%;
+
+    --radius: 0.75rem;
+
+    /* Custom design tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(190, 90%, 55%), hsl(270, 70%, 60%));
+    --gradient-glow: radial-gradient(circle at center, hsl(190, 90%, 55% / 0.15), transparent 70%);
+    --shadow-glow: 0 0 40px hsl(190, 90%, 55% / 0.3);
+    --shadow-glow-violet: 0 0 40px hsl(270, 70%, 60% / 0.3);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .light {
+    /* Light mode - Clean white background */
+    --background: 0 0% 100%;
+    --foreground: 220 30% 10%;
+
+    /* Cards with subtle shadows */
+    --card: 0 0% 98%;
+    --card-foreground: 220 30% 10%;
+
+    --popover: 0 0% 98%;
+    --popover-foreground: 220 30% 10%;
+
+    /* Primary stays vibrant */
+    --primary: 190 90% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Light secondary */
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 30% 10%;
+
+    /* Light muted */
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 20% 40%;
+
+    /* Accent adjusted for light mode */
+    --accent: 270 70% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Light borders */
+    --border: 220 15% 88%;
+    --input: 220 15% 92%;
+    --ring: 190 90% 45%;
+
+    /* Custom design tokens for light mode */
+    --gradient-primary: linear-gradient(135deg, hsl(190, 90%, 45%), hsl(270, 70%, 50%));
+    --gradient-glow: radial-gradient(circle at center, hsl(190, 90%, 45% / 0.1), transparent 70%);
+    --shadow-glow: 0 0 40px hsl(190, 90%, 45% / 0.2);
+    --shadow-glow-violet: 0 0 40px hsl(270, 70%, 50% / 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+    font-family: 'Inter', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .font-mono {
+    font-family: 'Space Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-xl border border-border/50;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 30px hsl(190, 90%, 55% / 0.3);
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 30px hsl(270, 70%, 60% / 0.3);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 40px hsl(190, 90%, 55% / 0.4);
+    transform: translateY(-2px);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  @keyframes rotate-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Prose styling for blog content */
+  .prose h2 {
+    @apply text-2xl font-bold mt-8 mb-4 text-foreground;
+  }
+
+  .prose h3 {
+    @apply text-xl font-semibold mt-6 mb-3 text-primary;
+  }
+
+  .prose p {
+    @apply mb-4 text-muted-foreground leading-relaxed;
+  }
+
+  .prose ul {
+    @apply list-none mb-4 space-y-2 text-muted-foreground;
+  }
+
+  .prose li {
+    @apply ml-6 relative;
+  }
+
+  .prose li:before {
+    content: "▹";
+    @apply absolute left-[-1.2rem] text-primary;
+  }
+
+  .prose strong {
+    @apply text-foreground font-semibold;
+  }
+
+  .prose code {
+    @apply bg-muted px-2 py-1 rounded text-sm font-mono text-primary;
+  }
+}
